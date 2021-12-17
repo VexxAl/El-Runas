@@ -27,7 +27,7 @@ def get_line(message):
     return content.split(" ")[-1]
 
 def test_comand(message):
-    return "Estoy de 10, gracias."
+    return "Estoy de 10, gracias. <:BonePlating:921497418787328040>"
 
 @client.event
 async def on_message(message):
@@ -51,6 +51,6 @@ async def on_message(message):
         await message.channel.send(ok)
     
 
-keep_alive()
+#keep_alive()
 TOKEN = os.environ.get("DISCORD_TOKEN")
 client.run(TOKEN)
