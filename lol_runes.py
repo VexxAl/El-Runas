@@ -27,15 +27,15 @@ def get_line(message):
     return content.split(" ")[-1]
 
 def test_comand(message):
-    return "Estoy de 10, gracias. <:BonePlating:921497418787328040>"
+    return "Estoy de 10, gracias."
 
 @client.event
 async def on_message(message):
     if message.author == client.user:
         return
 
-    if message.content.startswith('!runa'):
-        if message.content.strip() == "!runa":
+    if message.content.startswith('!rune'):
+        if message.content.strip() == "!rune":
             await message.channel.send("Por favor ingrese un nombre de campeón válido y su respectiva posición")
         else:
             champion_name = get_champion_name(message)

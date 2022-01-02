@@ -47,11 +47,11 @@ def get_rune(champ_name, line):
     img_list = doc.cssselect(img_selector1)
 
     if len(img_list) > 0:
-        rune_list.append("----------------Primarias:------------------")
+        rune_list.append("----------------Primary:------------------")
 
         appendPrimary(img_list, rune_list)
 
-        rune_list.append("\n----------------Secundarias:----------------")
+        rune_list.append("\n----------------Secondary:----------------")
 
         img_selector2 = '.ChampionKeystoneRune-1>tr:first-child .perk-page:nth-child(3) .perk-page__item--active>div>img'
         img_list2 = doc.cssselect(img_selector2)
