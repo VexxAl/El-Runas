@@ -4,7 +4,7 @@ import discord
 from discord.enums import ContentFilter
 from dotenv import load_dotenv
 
-from extractor import get_rune
+from extractor import get_rune, getMoji
 
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
@@ -27,7 +27,7 @@ def get_line(message):
     return content.split(" ")[-1]
 
 def test_comand(message):
-    return "Estoy de 10, gracias."
+    return f"Estoy de 10, gracias. {getMoji('Okay')}"
 
 @client.event
 async def on_message(message):
@@ -36,7 +36,7 @@ async def on_message(message):
 
     if message.content.startswith('!rune'):
         if message.content.strip() == "!rune":
-            await message.channel.send("Por favor ingrese un nombre de campeón válido y su respectiva posición")
+            await message.channel.send(f"Por favor ingrese un nombre de campeón válido y su respectiva posición. {getMoji('NowSeeHere')}")
         else:
             champion_name = get_champion_name(message)
             line = get_line(message)
@@ -44,7 +44,7 @@ async def on_message(message):
             if runes is not None:
                 await message.channel.send(runes)
             else:
-                await message.channel.send("No pudimos encontrar las runas que solicitaste, por favor revisa que el nombre y la linea esten bien escritas.")
+                await message.channel.send(f"No pudimos encontrar las runas que solicitaste, por favor revisa que el nombre y la linea esten bien escritas. {getMoji('BeeSad')}")
 
     if message.content.startswith("!test"):
         ok = test_comand(message)
