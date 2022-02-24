@@ -7,22 +7,22 @@ from constants import diccioMoji, userAgent
 
 
 def appendPrimary(img_list, rune_list, doc):
-    PrimarySelector = '.ChampionKeystoneRune-1>tr:first-child .perk-page:first-child .perk-page__row:first-child img'
+    PrimarySelector = '.rune-tree_mobile .primary-tree .rune-tree_header img'
     Primary_imgurl = doc.cssselect(PrimarySelector)[0].get("src")
     Primary_imgName = re.search(r".*/(.*)\.png", Primary_imgurl).group(1)
     rune_list.append(f"----------------Primary:{getMoji(Primary_imgName)}------------------")
     for img in img_list:
-        primary = img.get("alt")
+        primary = img.get("alt").replace("The Keystone ", "").replace('The Rune ', '')
         rune_list.append(f"{getMoji(primary)} {primary}")
 
 
 def appendSecondary(img_list, rune_list, doc):
-    SecondarySelector = '.ChampionKeystoneRune-1>tr:first-child .perk-page:nth-child(3) .perk-page__row:first-child img'
+    SecondarySelector = '.secondary-tree .rune-tree_mobile .rune-tree_header img'
     Secondary_imgurl = doc.cssselect(SecondarySelector)[0].get("src")
     Secondary_imgName = re.search(r".*/(.*)\.png", Secondary_imgurl).group(1)
     rune_list.append(f"\n----------------Secondary:{getMoji(Secondary_imgName)}----------------")
     for img in img_list:
-        secondary = img.get("alt")
+        secondary = img.get("alt").replace("The Keystone ", "").replace('The Rune ', '')
         rune_list.append(f"{getMoji(secondary)} {secondary}")
 
 
@@ -30,20 +30,20 @@ def getMoji(runeMoji):
     return diccioMoji.get(runeMoji, " ")
 
 
-def get_rune(champ_name, line):
-    result = requests.get(f'https://op.gg/champion/{champ_name}/statistics/{line}/build',
+def get_rune(champ_name):
+    result = requests.get(f'https://u.gg/lol/champions/{champ_name}/build',
                           cookies={'customLocale': 'en'}, headers={
             'user-agent': userAgent})
     doc = fromstring(result.content)
     rune_list = []
 
-    img_selector1 = '.ChampionKeystoneRune-1>tr:first-child .perk-page:first-child .perk-page__item--active>div>img'
+    img_selector1 = '.rune-tree_mobile .primary-tree .perk-active img'
     img_list = doc.cssselect(img_selector1)
 
     if len(img_list) > 0:
         appendPrimary(img_list, rune_list, doc)
 
-        img_selector2 = '.ChampionKeystoneRune-1>tr:first-child .perk-page:nth-child(3) .perk-page__item--active>div>img'
+        img_selector2 = '.secondary-tree .rune-tree_mobile .perk-active img'
         img_list2 = doc.cssselect(img_selector2)
 
         appendSecondary(img_list2, rune_list, doc)
