@@ -10,23 +10,23 @@ def appendPrimary(img_list, rune_list, doc):
     PrimarySelector = '.rune-tree_mobile .primary-tree .rune-tree_header img'
     Primary_imgurl = doc.cssselect(PrimarySelector)[0].get("src")
     Primary_imgName = re.search(r".*/(.*)\.png", Primary_imgurl).group(1)
-    rune_list.append(f"----------------Primary:{getMoji(Primary_imgName)}------------------")
+    rune_list.append(f"----------------Primary:{get_emoji(Primary_imgName)}------------------")
     for img in img_list:
         primary = img.get("alt").replace("The Keystone ", "").replace('The Rune ', '')
-        rune_list.append(f"{getMoji(primary)} {primary}")
+        rune_list.append(f"{get_emoji(primary)} {primary}")
 
 
 def appendSecondary(img_list, rune_list, doc):
     SecondarySelector = '.secondary-tree .rune-tree_mobile .rune-tree_header img'
     Secondary_imgurl = doc.cssselect(SecondarySelector)[0].get("src")
     Secondary_imgName = re.search(r".*/(.*)\.png", Secondary_imgurl).group(1)
-    rune_list.append(f"\n----------------Secondary:{getMoji(Secondary_imgName)}----------------")
+    rune_list.append(f"\n----------------Secondary:{get_emoji(Secondary_imgName)}----------------")
     for img in img_list:
         secondary = img.get("alt").replace("The Keystone ", "").replace('The Rune ', '')
-        rune_list.append(f"{getMoji(secondary)} {secondary}")
+        rune_list.append(f"{get_emoji(secondary)} {secondary}")
 
 
-def getMoji(runeMoji):
+def get_emoji(runeMoji):
     return diccioMoji.get(runeMoji, " ")
 
 

@@ -29,7 +29,7 @@ diccioMoji = {
     "Eyeball Collection": "<:EyeballCollection:927249924758835210>",
     "Ultimate Hunter": "<:UltimateHunter:927249924993728583>",
     "Ingenious Hunter": "<:IngeniousHunter:927249924758835221>",
-    "Ravenous Hunter": "<:RavenousHunter:927249924943392859>",
+    "Tresuere Hunter": "<:TreasureHunter:977057629778112554>",
     "Relentless Hunter": "<:RelentlessHunter:927249925086003280>",
 
     "8200": "<:Sorcery:927249725248380958> ",
