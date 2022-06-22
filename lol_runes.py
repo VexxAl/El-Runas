@@ -29,7 +29,7 @@ async def on_message(message):
 
     if message.content.startswith('!rune'):
         if message.content.strip() == "!rune":
-            await message.channel.send(f"Por favor ingrese un nombre de campeón válido y su respectiva posición. {get_emoji('NowSeeHere')}")
+            await message.channel.send(f"Por favor ingrese un nombre de campeón válido. {get_emoji('NowSeeHere')}")
         else:
             champion_name = get_champion_name(message)
             runes = get_rune(champion_name)
