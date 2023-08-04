@@ -1,13 +1,17 @@
 import os
+import re
 import discord
 
 from dotenv import load_dotenv
 from extractor import get_rune, get_emoji
 
-load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
 
-client = discord.Client()
+intents = discord.Intents.default()
+intents.message_content = True
+intents.guild_typing = True
+intents.guild_reactions = True
+client = discord.Client(intents=intents)
 
 @client.event
 async def on_ready():
@@ -15,9 +19,10 @@ async def on_ready():
 
 def get_champion_name(message):
     content:str = message.content
-    lista_partida = content.split(" ")
+    lista_partida = content.split(" ", maxsplit=1)
+    if re.match(r'^\w+ \w+$', lista_partida[-1]) or re.match(r"'.*'", lista_partida[-1]):
+        lista_partida[-1] = lista_partida[-1].replace(" ", "").replace("'", "")
     return lista_partida.pop(-1)
-
 
 def test_comand(message):
     return f"Estoy de 10, gracias. {get_emoji('Okay')}"
@@ -41,7 +46,6 @@ async def on_message(message):
     if message.content.startswith("!test"):
         ok = test_comand(message)
         await message.channel.send(ok)
-    
 
 TOKEN = os.environ.get("DISCORD_TOKEN")
 client.run(TOKEN)

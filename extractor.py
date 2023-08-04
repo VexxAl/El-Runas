@@ -1,5 +1,6 @@
 import re
 
+import cssselect
 import requests as requests
 from lxml.html import fromstring
 
@@ -7,17 +8,18 @@ from constants import diccioMoji, userAgent
 
 
 def appendPrimary(img_list, rune_list, doc):
-    PrimarySelector = '.rune-tree_mobile .primary-tree .rune-tree_header img'
+    PrimarySelector = '.primary-tree .rune-tree_header img'
     Primary_imgurl = doc.cssselect(PrimarySelector)[0].get("src")
     Primary_imgName = re.search(r".*/(.*)\.png", Primary_imgurl).group(1)
     rune_list.append(f"----------------Primary:{get_emoji(Primary_imgName)}------------------")
-    for img in img_list:
+    for i in range(4):
+        img = img_list[i]
         primary = img.get("alt").replace("The Keystone ", "").replace('The Rune ', '')
         rune_list.append(f"{get_emoji(primary)} {primary}")
 
 
 def appendSecondary(img_list, rune_list, doc):
-    SecondarySelector = '.secondary-tree .rune-tree_mobile .rune-tree_header img'
+    SecondarySelector = '.secondary-tree .rune-tree_header img'
     Secondary_imgurl = doc.cssselect(SecondarySelector)[0].get("src")
     Secondary_imgName = re.search(r".*/(.*)\.png", Secondary_imgurl).group(1)
     rune_list.append(f"\n----------------Secondary:{get_emoji(Secondary_imgName)}----------------")
@@ -26,18 +28,16 @@ def appendSecondary(img_list, rune_list, doc):
         rune_list.append(f"{get_emoji(secondary)} {secondary}")
 
 
-def get_emoji(runeMoji):
-    return diccioMoji.get(runeMoji, " ")
+def get_emoji(rune_emoji):
+    return diccioMoji.get(rune_emoji, " ")
 
 
 def get_rune(champ_name):
-    result = requests.get(f'https://u.gg/lol/champions/{champ_name}/build',
-                          cookies={'customLocale': 'en'}, headers={
-            'user-agent': userAgent})
+    result = requests.get(f'https://u.gg/lol/champions/{champ_name}/runes?rank=overall', cookies={'customLocale': 'en'}, headers={'user-agent': userAgent})
     doc = fromstring(result.content)
     rune_list = []
 
-    img_selector1 = '.rune-tree_mobile .primary-tree .perk-active img'
+    img_selector1 = '.primary-tree .perks .perk-active img'
     img_list = doc.cssselect(img_selector1)
 
     if len(img_list) > 0:
