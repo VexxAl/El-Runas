@@ -5,6 +5,7 @@ import discord
 from dotenv import load_dotenv
 from extractor import get_rune, get_emoji
 
+load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
 
 intents = discord.Intents.default()
