@@ -5,6 +5,7 @@ import discord
 from dotenv import load_dotenv
 from extractor import get_rune, get_emoji
 
+load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
 
 intents = discord.Intents.default()
@@ -47,5 +48,4 @@ async def on_message(message):
         ok = test_comand(message)
         await message.channel.send(ok)
 
-TOKEN = os.environ.get("DISCORD_TOKEN")
 client.run(TOKEN)

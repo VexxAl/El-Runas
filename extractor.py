@@ -33,7 +33,7 @@ def get_emoji(rune_emoji):
 
 
 def get_rune(champ_name):
-    result = requests.get(f'https://u.gg/lol/champions/{champ_name}/runes?rank=overall', cookies={'customLocale': 'en'}, headers={'user-agent': userAgent})
+    result = requests.get(f'https://u.gg/lol/champions/{champ_name}/build', cookies={'customLocale': 'en'}, headers={'user-agent': userAgent})
     doc = fromstring(result.content)
     rune_list = []
 

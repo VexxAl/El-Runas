@@ -77,5 +77,4 @@ diccioMoji = {
     "BeeSad": "<:BeeSad:927277025901834290>",
     "NowSeeHere": "<:NowSeeHere:927277653097058375>",
     "Okay": "<:Okay:932901024631504938>",
-
 }
